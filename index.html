@@ -2115,6 +2115,54 @@ v3.0.</li>
 
 <p>Initial release of OAI-PMH API.</p>
 
+            <h1 id="github">Github</h1>
+
+<h2 id="add-metadata-to-your-github-repository-release">Add metadata to your GitHub repository release</h2>
+
+<p>Zenodo automatically extracts metadata about your repository from GitHub APIs. For example, the authors are determined from the repository&rsquo;s contributor statistics. To achieve overwriting some of the default metadata that would come from a regular GitHub release you will have to use the <code class="prettyprint">.zenodo.json</code> file at the root of your GitHub repository.</p>
+
+<p>The <code class="prettyprint">JSON Schema</code> followed by the <code class="prettyprint">.zenodo.json</code> file is at <a href="https://zenodo.org/schemas/deposits/records/legacyrecord.json">JSON Schema</a> and is documented in our developer docs at <a href="https://developers.zenodo.org/?python#deposit-metadata">Developer Docs</a>. After the first release of your repository you can also find a personalized version of the <code class="prettyprint">.zenodo.json</code> on <code class="prettyprint">https://zenodo.org/account/settings/github/repository/</code> which might be an easier alternative to edit.</p>
+
+<p>In the example shown we added some new creators with their respective ORCID, added a community, a license, a related identifier, some keywords, and the respective grant.</p>
+<pre class="highlight python"><code><span class="p">{</span>
+    <span class="s">"description"</span><span class="p">:</span> <span class="s">"Laser catching has been hunting cats since the beginning of time. In this study, we investigate why the red dot is so hard to catch and present the main skills needed to catch it."</span><span class="p">,</span>
+    <span class="s">"license"</span><span class="p">:</span> <span class="s">"other-open"</span><span class="p">,</span>
+    <span class="s">"title"</span><span class="p">:</span> <span class="s">"Why cats love the red dot? A scientific approach"</span><span class="p">,</span>
+    <span class="s">"upload_type"</span><span class="p">:</span> <span class="s">"software"</span><span class="p">,</span>
+    <span class="s">"publication_date"</span><span class="p">:</span> <span class="s">"2021-06-28"</span><span class="p">,</span>
+    <span class="s">"communities"</span><span class="p">:</span> <span class="p">[</span>
+        <span class="p">{</span>
+            <span class="s">"identifier"</span><span class="p">:</span> <span class="s">"zenodo"</span>
+        <span class="p">}</span>
+    <span class="p">],</span>
+    <span class="s">"creators"</span><span class="p">:</span> <span class="p">[</span>
+        <span class="p">{</span>   
+            <span class="s">"orcid"</span><span class="p">:</span> <span class="s">"0000-0002-1825-0097"</span><span class="p">,</span>
+            <span class="s">"affiliation"</span><span class="p">:</span> <span class="s">"Feline reasearch institute"</span><span class="p">,</span>
+            <span class="s">"name"</span><span class="p">:</span> <span class="s">"Field, Gar"</span>
+        <span class="p">},</span>
+        <span class="p">{</span>   
+            <span class="s">"orcid"</span><span class="p">:</span> <span class="s">"0000-0002-1825-0097"</span><span class="p">,</span>
+            <span class="s">"affiliation"</span><span class="p">:</span> <span class="s">"Feline reasearch institute"</span><span class="p">,</span>
+            <span class="s">"name"</span><span class="p">:</span> <span class="s">"Cat, Felix"</span>
+        <span class="p">}</span>
+    <span class="p">],</span>
+    <span class="s">"access_right"</span><span class="p">:</span> <span class="s">"open"</span><span class="p">,</span>
+    <span class="s">"related_identifiers"</span><span class="p">:</span> <span class="p">[</span>
+        <span class="p">{</span>
+            <span class="s">"scheme"</span><span class="p">:</span> <span class="s">"doi"</span><span class="p">,</span>
+            <span class="s">"identifier"</span><span class="p">:</span> <span class="s">"10.5072/zenodo.&lt;RECID&gt;"</span><span class="p">,</span>
+            <span class="s">"relation"</span><span class="p">:</span> <span class="s">"isDocumentedBy"</span>
+        <span class="p">}</span>
+    <span class="p">],</span>
+    <span class="s">"keywords"</span><span class="p">:</span> <span class="p">[</span><span class="s">"Cats"</span><span class="p">,</span> <span class="s">"Laser"</span><span class="p">,</span> <span class="s">"Behavior"</span><span class="p">],</span>
+    <span class="s">"grants"</span><span class="p">:</span> <span class="p">[{</span><span class="s">"id"</span><span class="p">:</span><span class="s">"777541"</span><span class="p">}]</span>
+<span class="p">}</span>
+</code></pre>
+<h2 id="how-to-verify-your-zenodo-json">How to verify your .zenodo.json?</h2>
+
+<p>Now that you have edited your <code class="prettyprint">.zenodo.json</code> file you should validate it to make sure everything is following the norm. In order to validate it, you can use a tool like the <a href="https://jsonformatter.curiousconcept.com/#">JSON Validator</a>.</p>
+
         </div>
         <div class="dark-box">
             <div class="lang-selector">
