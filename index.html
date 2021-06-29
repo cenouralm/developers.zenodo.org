@@ -2123,7 +2123,17 @@ v3.0.</li>
 
 <p>The contents of the <code class="prettyprint">.zenodo.json</code> file are based on our <a href="https://developers.zenodo.org/#deposit-metadata">deposit metadata documentation</a> and can be structurally validated by our <a href="https://zenodo.org/schemas/deposits/records/legacyrecord.json">deposit JSON Schema</a>. </p>
 
-<p>In the example shown we added some new creators with their respective ORCID, added a community, a license, a related identifier, some keywords, and the respective grant.</p>
+<p>In the example shown, we add metadata regarding:</p>
+
+<ul>
+<li>software authorship and ORCiDs, via the <code class="prettyprint">creators</code> field</li>
+<li>Apache-2.0 licensing, via the <code class="prettyprint">license</code> field</li>
+<li>a custom title, via the <code class="prettyprint">title</code> field</li>
+<li>a related identifier to the software paper, via the <code class="prettyprint">related_identifiers</code> field</li>
+<li>keywords, via the <code class="prettyprint">keywords</code> field</li>
+<li>Zenodo communities, via the <code class="prettyprint">communities</code> field</li>
+<li>funding information, via the <code class="prettyprint">grants</code> field</li>
+</ul>
 <pre class="highlight python"><code><span class="p">{</span>
     <span class="s">"description"</span><span class="p">:</span> <span class="s">"Laser catching has been hunting cats since the beginning of time. In this study, we investigate why the red dot is so hard to catch and present the main skills needed to catch it."</span><span class="p">,</span>
     <span class="s">"license"</span><span class="p">:</span> <span class="s">"other-open"</span><span class="p">,</span>
