@@ -2121,7 +2121,7 @@ v3.0.</li>
 
 <p>We automatically extract metadata about your release from GitHub APIs. For example, the authors are determined from the repository&rsquo;s contributor statistics. To overwrite some of the default metadata that would come from a regular GitHub release you can include a <code class="prettyprint">.zenodo.json</code> file at the root of your GitHub repository.</p>
 
-<p>The <code class="prettyprint">JSON Schema</code> followed by the <code class="prettyprint">.zenodo.json</code> file is at <a href="https://zenodo.org/schemas/deposits/records/legacyrecord.json">JSON Schema</a> and is documented in our developer docs at <a href="https://developers.zenodo.org/?python#deposit-metadata">Developer Docs</a>. After the first release of your repository you can also find a personalized version of the <code class="prettyprint">.zenodo.json</code> on <code class="prettyprint">https://zenodo.org/account/settings/github/repository/</code> which might be an easier alternative to edit.</p>
+<p>The contents of the <code class="prettyprint">.zenodo.json</code> file are based on our <a href="https://developers.zenodo.org/#deposit-metadata">deposit metadata documentation</a> and can be structurally validated by our <a href="https://zenodo.org/schemas/deposits/records/legacyrecord.json">deposit JSON Schema</a>. </p>
 
 <p>In the example shown we added some new creators with their respective ORCID, added a community, a license, a related identifier, some keywords, and the respective grant.</p>
 <pre class="highlight python"><code><span class="p">{</span>
