@@ -16,6 +16,35 @@ not available for download.
 
 `https://zenodo.org/oai2d`
 
+
+## Installing prerequisites for our example
+For this example, we are going to be using Sickle since it simplifies our workflow and supports XML parsing.
+
+```python
+# Install the Sickle package using pip
+pip install Sickle
+```
+
+```python
+# Import Sickle and initialize the client by passing the base URL
+>>> from sickle import Sickle
+>>> sickle = Sickle('https://zenodo.org/oai2d')
+```
+
+## Get information about the OAI-PMH API
+To get some general information about the repository we can use the `Identify` object.
+
+```python
+# Get information on the OAI-PMH API by using "Identify"
+>>> identity = sickle.Identify()
+>>> identity.granularity
+'YYYY-MM-DDThh:mm:ssZ'
+
+>>> identity.earliestDatestamp
+'2014-02-03T14:41:33Z'
+```
+
+
 ## Resumption tokens
 
 Resumption tokens are only valid for **2 minutes**. In case a token expired, you will receive a ``422 Unprocessable Entity`` HTTP error.
@@ -29,11 +58,19 @@ Resumption tokens are only valid for **2 minutes**. In case a token expired, you
 
 The OAI-PMH API is rated limited like the REST API - i.e. you will receive
 a ``429 Too Many Requests`` HTTP error if you exceed the limit.
+For more information please take a look at the [rate limiting documentation](https://developers.zenodo.org/#rate-limiting).
 
 ## Metadata formats
+To list the available records metadata formats we can use `ListMetadataFormats`.
 
-Metadata for each record is available in several formats. The available formats
-include:
+```python
+# Metadata for each record is available in several formats
+>>> metadataFormats = sickle.ListMetadataFormats()
+>>> list(metadataFormats)
+[<MetadataFormat marcxml>, <MetadataFormat oai_datacite4>, ...]
+```
+
+### The available formats include:
 
 **`oai_datacite`**
 
@@ -124,14 +161,20 @@ We support both harvesting of the _entire repository_ as well as _selective
 harvesting_ of communities.
 
 
-**Entire repository**
-
-In order to harvest the entire repository you make an OAI-PMH request without
-passing any set specification.
+### Entire repository
+Harvesting an entire repository is as simple as using the `metadataPrefix`.
 
 [See example](https://zenodo.org/oai2d?verb=ListRecords&
 metadataPrefix=oai_datacite)
 
+```python
+# Harvest the entire repository making an OAI-PMH request
+>>> records = sickle.ListRecords(metadataPrefix='oai_dc')
+>>> record = records.next()
+<Record oai:zenodo.org:3442216>
+```
+
+### Selective harvesting
 
 **`user-<identifier>`**
 
@@ -143,28 +186,58 @@ correct community identifier.
 [See example](https://zenodo.org/oai2d?verb=ListRecords&
 metadataPrefix=oai_datacite&set=user-cfa)
 
+
+```python
+# Fetch a couple of records from the OAI Set of the "cfa" community
+>>> records = sickle.ListRecords(metadataPrefix='oai_dc', set='user-cfa')
+>>> record = records.next()
+
+# To inspect on what sets a record is in
+>>> record.header.setSpecs
+<...>
+```
+
+### Harvesting with a different metadata format
+There is also the possibility of using different metadata formats. For that, we only need to replace the `metadataPrefix` argument.
+
+[See example](https://zenodo.org/oai2d?verb=ListRecords&
+metadataPrefix=marc21&set=user-cfa)
+
+```python
+# Community harvest using "marc21" metadata format
+>>> records = sickle.ListRecords(metadataPrefix='marc21', set='user-cfa')
+>>> record = records.next()
+>>> record.metadata
+<...>
+```
+
+
+### Harvesting with multiple filters
+Using multiple filters to harvest records enables a higher level of granularity, allowing us to retrieve specific groups of records.
+
+[See example](https://zenodo.org/oai2d?verb=ListRecords&
+metadataPrefix=oai_datacite&set=user-cfa&from=%272019-01-01%27)
+
+```python
+# Selecting harvesting using "from"
+records = sickle.ListRecords(**{
+'metadataPrefix': 'oai_dc',
+'set': 'user-cfa',
+'from': '2019-01-01'
+})
+
+records.next()
+<Record oai:zenodo.org:7661>
+
+records.next()
+<Record oai:zenodo.org:6738>
+```
+
+### Other questions on harvesting
 If you need selective harvesting and your use case is not supported by above
-sets, please [contact us](http://about.zenodo.org/contact/) and we may possible
+sets, you can [contact us](https://zenodo.org/support) and we can try
 create a specific set for you.
 
 ## Update schedule
 
 Most updates are available immediately, some few updates are only reflected in the OAI sets once an hour.
-
-## Changes
-
-**2016-09-12**
-
-- Deprecated metadata formats `datacite3` and `oai_datacite3`. End of life is February 2018.
-- Removed rate limit of 0.5 requests/second.
-- Changed resumption token expiry to two minutes due to major update of our
-  underlying repository software.
-
-**2014-03-10**
-
-- Added metadata formats `datacite3` and `oai_datacite3` to support DataCite
-  v3.0.
-
-**2013-05-08**
-
-Initial release of OAI-PMH API.
