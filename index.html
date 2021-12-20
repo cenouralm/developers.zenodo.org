@@ -773,7 +773,7 @@ and <code class="prettyprint">code</code>, and possibly <code class="prettyprint
 <tr>
 <td style="text-align: left"><code class="prettyprint">related_identifiers</code></br><em>array of objects</em></td>
 <td style="text-align: left">No</td>
-<td style="text-align: left">Persistent identifiers of related publications and datasets. Supported identifiers include: DOI, Handle, ARK, PURL, ISSN, ISBN, PubMed ID, PubMed Central ID, ADS Bibliographic Code, arXiv, Life Science Identifiers (LSID), EAN-13, ISTC, URNs and URLs. Each array element is an object with the attributes:</br>* <code class="prettyprint">identifier</code>: The persistent identifier</br>* <code class="prettyprint">relation</code>: Relationship. Controlled vocabulary (<code class="prettyprint">isCitedBy</code>, <code class="prettyprint">cites</code>, <code class="prettyprint">isSupplementTo</code>, <code class="prettyprint">isSupplementedBy</code>, <code class="prettyprint">isContinuedBy</code>, <code class="prettyprint">continues</code>, <code class="prettyprint">isDescribedBy</code>, <code class="prettyprint">describes</code>, <code class="prettyprint">hasMetadata</code>, <code class="prettyprint">isMetadataFor</code>, <code class="prettyprint">isNewVersionOf</code>, <code class="prettyprint">isPreviousVersionOf</code>, <code class="prettyprint">isPartOf</code>, <code class="prettyprint">hasPart</code>, <code class="prettyprint">isReferencedBy</code>, <code class="prettyprint">references</code>, <code class="prettyprint">isDocumentedBy</code>, <code class="prettyprint">documents</code>, <code class="prettyprint">isCompiledBy</code>, <code class="prettyprint">compiles</code>, <code class="prettyprint">isVariantFormOf</code>, <code class="prettyprint">isOriginalFormof</code>, <code class="prettyprint">isIdenticalTo</code>, <code class="prettyprint">isAlternateIdentifier</code>, <code class="prettyprint">isReviewedBy</code>, <code class="prettyprint">reviews</code>, <code class="prettyprint">isDerivedFrom</code>, <code class="prettyprint">isSourceOf</code>, <code class="prettyprint">requires</code>, <code class="prettyprint">isRequiredBy</code>, <code class="prettyprint">isObsoletedBy</code>, <code class="prettyprint">obsoletes</code>).</br></br><strong>Example:</strong> <code class="prettyprint">[{&#39;relation&#39;: &#39;isSupplementTo&#39;, &#39;identifier&#39;:&#39;10.1234/foo&#39;}, {&#39;relation&#39;: &#39;cites&#39;, &#39;identifier&#39;:&#39;https://doi.org/10.1234/bar&#39;} ]</code> Note the identifier type (e.g. DOI) is automatically detected, and used to validate and normalize the identifier into a standard form.</td>
+<td style="text-align: left">Persistent identifiers of related publications and datasets. Supported identifiers include: DOI, Handle, ARK, PURL, ISSN, ISBN, PubMed ID, PubMed Central ID, ADS Bibliographic Code, arXiv, Life Science Identifiers (LSID), EAN-13, ISTC, URNs and URLs. Each array element is an object with the attributes:</br>* <code class="prettyprint">identifier</code>: The persistent identifier</br>* <code class="prettyprint">relation</code>: Relationship. Controlled vocabulary (<code class="prettyprint">isCitedBy</code>, <code class="prettyprint">cites</code>, <code class="prettyprint">isSupplementTo</code>, <code class="prettyprint">isSupplementedBy</code>, <code class="prettyprint">isContinuedBy</code>, <code class="prettyprint">continues</code>, <code class="prettyprint">isDescribedBy</code>, <code class="prettyprint">describes</code>, <code class="prettyprint">hasMetadata</code>, <code class="prettyprint">isMetadataFor</code>, <code class="prettyprint">isNewVersionOf</code>, <code class="prettyprint">isPreviousVersionOf</code>, <code class="prettyprint">isPartOf</code>, <code class="prettyprint">hasPart</code>, <code class="prettyprint">isReferencedBy</code>, <code class="prettyprint">references</code>, <code class="prettyprint">isDocumentedBy</code>, <code class="prettyprint">documents</code>, <code class="prettyprint">isCompiledBy</code>, <code class="prettyprint">compiles</code>, <code class="prettyprint">isVariantFormOf</code>, <code class="prettyprint">isOriginalFormof</code>, <code class="prettyprint">isIdenticalTo</code>, <code class="prettyprint">isAlternateIdentifier</code>, <code class="prettyprint">isReviewedBy</code>, <code class="prettyprint">reviews</code>, <code class="prettyprint">isDerivedFrom</code>, <code class="prettyprint">isSourceOf</code>, <code class="prettyprint">requires</code>, <code class="prettyprint">isRequiredBy</code>, <code class="prettyprint">isObsoletedBy</code>, <code class="prettyprint">obsoletes</code>).</br>* <code class="prettyprint">resource_type</code>: Type of the related resource (based on the <code class="prettyprint">upload_type</code>, <code class="prettyprint">publication_type</code>, and <code class="prettyprint">image_type</code> fields).</br></br><strong>Example:</strong> <code class="prettyprint">[{&#39;relation&#39;: &#39;isSupplementTo&#39;, &#39;identifier&#39;:&#39;10.1234/foo&#39;}, {&#39;relation&#39;: &#39;cites&#39;, &#39;identifier&#39;:&#39;https://doi.org/10.1234/bar&#39;, &#39;resource_type&#39;: &#39;image-diagram&#39;}]</code>. Note the identifier type (e.g. DOI) is automatically detected, and used to validate and normalize the identifier into a standard form.</td>
 </tr>
 <tr>
 <td style="text-align: left"><code class="prettyprint">contributors</code></br><em>array of objects</em></td>
@@ -926,6 +926,7 @@ and <code class="prettyprint">code</code>, and possibly <code class="prettyprint
   <code>blockquote</code>,
   <code>br</code>,
   <code>code</code>,
+  <code>caption</code>,
   <code>div</code>,
   <code>em</code>,
   <code>i</code>,
@@ -937,7 +938,13 @@ and <code class="prettyprint">code</code>, and possibly <code class="prettyprint
   <code>strike</code>,
   <code>strong</code>,
   <code>sub</code>,
-  <code>sup</code>,
+  <code>table</code>,
+  <code>caption</code>,
+  <code>tbody</code>,
+  <code>thead</code>,
+  <code>th</code>,
+  <code>td</code>,
+  <code>tr</code>,
   <code>u</code>,
   <code>ul</code>.
 </aside>
@@ -2173,9 +2180,60 @@ v3.0.</li>
     <span class="s">"grants"</span><span class="p">:</span> <span class="p">[{</span><span class="s">"id"</span><span class="p">:</span><span class="s">"777541"</span><span class="p">}]</span>
 <span class="p">}</span>
 </code></pre>
-<h2 id="how-to-verify-your-zenodo-json">How to verify your <code class="prettyprint">.zenodo.json</code>?</h2>
+<h2 id="how-to-verify-your-quot-zenodo-json-quot-file">How to verify your &ldquo;.zenodo.json&rdquo; file?</h2>
 
 <p>After creating your <code class="prettyprint">.zenodo.json</code> file you should validate it to make sure that it contains valid JSON. You can use a tool like the <a href="https://jsonformatter.curiousconcept.com">JSON Formatter &amp; Validator</a>, or load it via your favorite programming language.</p>
+
+            <h1 id="rate-limiting">Rate Limiting</h1>
+
+<p>For our content and services to be available to everyone we have to make sure that our resources are being distributed fairly. 
+To achieve this, we have rate-limiting measures in place which limit the number of requests users can perform in a time window. Depending on the complexity and load of each request, different endpoints have different limits configured.</p>
+
+<table><thead>
+<tr>
+<th style="text-align: left">Pages</th>
+<th style="text-align: left">Limitations</th>
+</tr>
+</thead><tbody>
+<tr>
+<td style="text-align: left">Global limit for guest users</td>
+<td style="text-align: left">60 requests per minute, 2000 requests per hour</td>
+</tr>
+<tr>
+<td style="text-align: left">Global limit for <a href="#authentication">authenticated users</a></td>
+<td style="text-align: left">100 requests per minute, 5000 requests per hour</td>
+</tr>
+<tr>
+<td style="text-align: left">OAI-PMH API harvesting</td>
+<td style="text-align: left">120 requests per minute</td>
+</tr>
+<tr>
+<td style="text-align: left">Thumbnails for image records</td>
+<td style="text-align: left">20 requests per minute</td>
+</tr>
+</tbody></table>
+
+<p>When you are making requests to any of our endpoints, you can inspect the following HTTP response headers for more information of your current rate-limit status:</p>
+
+<table><thead>
+<tr>
+<th style="text-align: left">HTTP header</th>
+<th style="text-align: left">Description</th>
+</tr>
+</thead><tbody>
+<tr>
+<td style="text-align: left"><code class="prettyprint">X-RateLimit-Limit</code></td>
+<td style="text-align: left">Current rate-limit policy, i.e. maximum number of requests per minute</td>
+</tr>
+<tr>
+<td style="text-align: left"><code class="prettyprint">X-RateLimit-Remaining</code></td>
+<td style="text-align: left">Number of requests remaining in the current rate limit</td>
+</tr>
+<tr>
+<td style="text-align: left"><code class="prettyprint">X-RateLimit-Reset</code></td>
+<td style="text-align: left">Reset time of the current rate limit</td>
+</tr>
+</tbody></table>
 
         </div>
         <div class="dark-box">
